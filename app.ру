@@ -40,8 +40,17 @@ def values(message: telebot.types.Message):
 
 
 @bot.message_handler(content_types=['text'])
-def convert(message^ telebot.types.Message):
+def convert(message: telebot.types.Message):
+    values = message.text.split(' ')
+
+    if len(values) > 3:
+        raise ConvertionException('Слишком много параметров.')
+
      quote, base, amount = message.text.split(' ')
+
+    if quote == base:
+        raise ConvertionException(f'Невозможно перевести одинаковые валюты {base}.')
+
      r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={keys[quote]}&tsyms={keys[base]}')
      total_base = json.loads(r.content)[keys[base]]
      text = f'Wtyf {amount} {quote} в {base} - {total_base}/'
