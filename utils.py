@@ -1,6 +1,6 @@
 import requests
 import json
-from onfig import keys
+from config import keys
 
 
 class ConvertsionException(Exception):
@@ -9,7 +9,7 @@ class ConvertsionException(Exception):
 
 class MoneyConverter:
     @staticmethod
-    def convert(quote: str, base: str, amount: str):
+    def get_price(quote: str, base: str, amount: str):
         if quote == base:
             raise ConvertionException(f'Невозможно перевести одинаковые валюты {base}.')
 
@@ -29,6 +29,6 @@ class MoneyConverter:
             raise ConvertionException(f'Не удалось обработать количетво {amount}')
 
     r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-    total_base = json.loads(r.content)[keys[base]]
+    total_base = float(json.loads(r.content)[keys[base]])
 
     return total_base
