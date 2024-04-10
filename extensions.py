@@ -29,6 +29,6 @@ class Exchange:
             raise ExchangeException(f'Не удалось обработать количетво {amount}')
 
         r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-        total_base = float(json.loads(r.content)[keys[base]])
+        total_base = float(json.loads(r.content)[keys[base]]*(amount))
 
         return total_base
