@@ -53,7 +53,7 @@ def convert(message: telebot.types.Message):
 
 
      quote_ticker, base_ticker = keys[quote], keys[base]
-     r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={keys[quote]}&tsyms={keys[base]}')
+     r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
      total_base = json.loads(r.content)[keys[base]]
      text = f'Wtyf {amount} {quote} в {base} - {total_base}/'
      bot.send_message(message.chat.id,text)
@@ -64,16 +64,7 @@ def get_price(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
 
-        if len(values) != 3:
-            raise ExchangeException('Введите команду или 3 параметра')
-
-        quote, base, amount = values
-        total_base = Exchange.get_price(quote, base, amount)
-    except ExchangeException as e:
-        bot.reply_to(message, f'Ошибка пользователя.\n{e}')
-    except Exception as e:
-        bot.reply_to(message, f'Что-то пошло не так с {e}')
-    else:
+    
         text = f'Переводим {quote} в {base}\n{amount} {quote} = {total_base} {base}'
         bot.send_message(message.chat.id, text)
 
