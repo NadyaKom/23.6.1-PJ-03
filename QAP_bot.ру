@@ -1,4 +1,3 @@
-
 import telebot
 from config import token, keys
 from extensions import ExchangeException, Exchange
