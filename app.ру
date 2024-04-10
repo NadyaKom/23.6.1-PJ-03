@@ -14,6 +14,8 @@ keys = {
     'рубль': 'RUB',
 }
 
+class ConvertsionException(Exception):
+   pass
 
 @bot.message_handler(commands=['start'])
 def start(message: telebot.types.Message):
