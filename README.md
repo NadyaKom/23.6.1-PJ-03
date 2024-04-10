@@ -1,1 +1,1 @@
-Телеграм-бот для конвертации валют. Имя в телеграме @QAP_Convertbot (https://t.me/QAP_Convertbot)
+Телеграм-бот для конвертации валют. Имя в телеграме @QAPdz_bot (https://t.me/QAPdz_bot)
