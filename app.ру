@@ -30,7 +30,7 @@ def convert(message: telebot.types.Message):
         raise ConvertionException('Слишком много параметров.')
 
     quote, base, amount = values
-    total_base = Excchange.get_price(quote, base, amount)
+    total_base = Exchange.get_price(quote, base, amount)
 
 
     text = f'Цена {amount} {quote} в {base} - {total_base}'
