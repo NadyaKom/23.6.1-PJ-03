@@ -13,22 +13,22 @@ class Exchange:
         if quote == base:
             raise ExchangeException(f'Невозможно перевести одинаковые валюты {base}.')
 
-       try:
+        try:
             quote_ticker = keys[quote]
         except KeyError:
             raise ExchangeException(f'Не удалось обработать валюту {quote}')
 
         try:
             base_ticker = keys[base]
-    except KeyError:
+        except KeyError:
             raise ExchangeException(f'Не удалось обработать валюту {base}')
 
         try:
             amount = float(amount)
-    except ValueError^
+        except ValueError:
             raise ExchangeException(f'Не удалось обработать количетво {amount}')
 
-    r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-    total_base = float(json.loads(r.content)[keys[base]])
+        r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+        total_base = float(json.loads(r.content)[keys[base]])
 
-    return total_base
+        return total_base
