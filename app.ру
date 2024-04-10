@@ -6,6 +6,12 @@ TOKEN = '6229548100:AAFyFVWM9jjy42I6Et62tTmzKVr7hJ0j6QA'
 
 bot = telebot.TeleBot(TOKEN)
 
+keys = {
+    'евро': 'EUR',
+    'доллар': 'ЮэСДэ',
+    'рубль': 'RUB',
+}
+
 
 @bot.message_handler(commands=['start'])
 def start(message: telebot.types.Message):
