@@ -1,49 +1,7 @@
 import telebot
-import requests
-import json
-
-
-TOKEN = '6229548100:AAFyFVWM9jjy42I6Et62tTmzKVr7hJ0j6QA'
 
 
 bot = telebot.TeleBot(TOKEN)
-
-keys = {
-    'евро': 'EUR',
-    'доллар': 'USD',
-    'рубль': 'RUB',
-}
-
-
-class ConvertsionException(Exception):
-   pass
-
-
-class MoneyConverter:
-    @staticmethod
-    def convert(quote: str, base: str, amount: str):
-        if quote == base:
-            raise ConvertionException(f'Невозможно перевести одинаковые валюты {base}.')
-
-       try:
-            quote_ticker = keys[quote]
-        except KeyError:
-            raise ConvertionException(f'Не удалось обработать валюту {quote}')
-
-        try:
-            base_ticker = keys[base]
-    except KeyError:
-            raise ConvertionException(f'Не удалось обработать валюту {base}')
-
-        try:
-            amount = float(amount)
-    except ValueError^
-            raise ConvertionException(f'Не удалось обработать количетво {amount}')
-
-    r=requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-    total_base = json.loads(r.content)[keys[base]]
-
-    return total_base
 
 
 @bot.message_handler(commands=['start', 'help])
@@ -68,6 +26,16 @@ def convert(message: telebot.types.Message):
 
     if len(values)!= 3:
         raise ConvertionException('Слишком много параметров.')
+
+    quote, base, amount = values
+    total_base = MoneyConverter.convert(quote, base, amount)
+
+    text = f'Цена {amount} {quote} в {base} - {total_base}'
+    bot.send_massage(message.chat.id, text)
+
+
+bot.polling()
+
 
    
 
